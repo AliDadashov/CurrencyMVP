@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = findViewById(R.id.progressBar2);
-        btnStatus = findViewById(R.id.button);
+//        progressBar = findViewById(R.id.progressBar2);
+//        btnStatus = findViewById(R.id.button);
+//
 
-
-        presenter = new CurrencyPresenter();
-        presenter.setView(this, getApplicationContext());
+//        presenter = new CurrencyPresenter();
+//        presenter.setView(this);
 
 
         btnStatus.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
                 showProgressBar();
                 String msg="";
 
-                if (presenter.isConnected()) {
+                if (isConnected()) {
                    msg="internet connected";
 
 
@@ -52,6 +52,20 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    public boolean isConnected() {
+        boolean connected = false;
+        try {
+            ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo nInfo = cm.getActiveNetworkInfo();
+            connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.e("Connectivity Exception", e.getMessage());
+        }
+        return connected;
     }
 
 
