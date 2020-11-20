@@ -1,24 +1,52 @@
 package com.example.currencymvp.network;
 
-import java.util.concurrent.TimeUnit;
+import android.content.Context;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class CurrencyApiInit {
+    private CurrencyApiInterface.CurrencyService currencyService;
+    private Retrofit retrofit;
 
-    public static String BASE_URL="https://tayqatech.com/";
+    private Context context;
 
-    public static CurrencyApiInterface.CurrencyService buildRetrofit() {
+    public CurrencyApiInit(Context context) {
+        this.context = context;
+    }
 
-        return new Retrofit.Builder()
+    public static String BASE_URL = "https://tayqatech.com/";
+
+//    public static CurrencyApiInterface.CurrencyService buildRetrofit() {
+//
+//        return new Retrofit.Builder()
+//                .addConverterFactory(ScalarsConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .baseUrl(BASE_URL)
+//                .build()
+//                .create(CurrencyApiInterface.CurrencyService.class);
+//    }
+
+    public CurrencyApiInit initDefaultApi() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
-                .build()
-                .create(CurrencyApiInterface.CurrencyService.class);
+                .build();
+        return this;
     }
+
+
+    public CurrencyApiInit createService() {
+        currencyService = retrofit.create(CurrencyApiInterface.CurrencyService.class);
+        return this;
+    }
+
+    public CurrencyApiInterface.CurrencyService getService() {
+        return currencyService;
+    }
+
+
 }

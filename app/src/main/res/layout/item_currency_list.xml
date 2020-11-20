@@ -34,7 +34,7 @@
                 android:layout_marginBottom="-40dp" />
 
             <TextView
-                android:id="@+id/text_amount"
+                android:id="@+id/text_rate"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/text_currency"
