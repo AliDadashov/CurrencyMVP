@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.currencymvp.R;
 import com.example.currencymvp.data.CurrencyData;
@@ -22,12 +25,18 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
 
     private CurrencyPresenter presenter;
     private CurrencyAdapter adapter;
-    ProgressBar progressBar;
     RecyclerView recyclerView;
+    Context context;
 
 
-    @BindView(R.id.enter_amount)
+    @BindView(R.id.amount_editText)
     EditText enteredAmount;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
+//    @BindView(R.id.confirm_button)
+//    Button button;
 
 
     @Override
@@ -39,26 +48,28 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         presenter = new CurrencyPresenter();
         presenter.setView(this);
 
-        presenter.onSendRequest("USD");
+        recyclerView = findViewById(R.id.currency_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new CurrencyAdapter(this);
+        recyclerView.setAdapter(adapter);
+
+        presenter.onSendRequest("GBP");
+        showProgressBar();
+
     }
 
-    @Override
-    public void setData(String date) {
-
-    }
 
     @Override
-    public void setBaseCurrency(String baseCurrency) {
+    public void setRate(String rate) {
 
     }
 
     @Override
     public void setData(List<CurrencyData> dataList) {
-        recyclerView = findViewById(R.id.currency_recycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new CurrencyAdapter(this, dataList);
-        recyclerView.setAdapter(adapter);
+
+        adapter.addDataNotified(dataList);
     }
 
     @Override
@@ -69,5 +80,17 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+
+    @Override
+    public void showError(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public MainActivity getContext() {
+        return this;
     }
 }

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/liner_layout"
@@ -12,46 +12,44 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/enter_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="Enter amount"
-        android:inputType="numberDecimal">
-    </EditText>
+        <EditText
+            android:id="@+id/amount_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:hint="Enter amount"
+            android:inputType="numberDecimal"/>
 
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="30dp"
-        android:text="OK"
-        android:textSize="20dp">
-    </Button>
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:text="OK"
+            android:textSize="20dp"/>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/currency_recycler"
-        tools:listitem="@layout/item_currency_list"
-        android:layout_alignBottom="@+id/confirm_button"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:clipToPadding="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currency_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/confirm_button"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_currency_list" />
 
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

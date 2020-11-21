@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.currencymvp.R;
 import com.example.currencymvp.data.CurrencyData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.VievHolder> {
@@ -19,11 +20,18 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.VievHo
     private List<CurrencyData> currencyData;
     Context context;
 
-    public CurrencyAdapter(Context context, List<CurrencyData> currencyData) {
+    public CurrencyAdapter(Context context) {
         this.context = context;
-        this.currencyData = currencyData;
+        currencyData = new ArrayList<>();
+
     }
 
+    public void addDataNotified(List<CurrencyData> currencyData) {
+        this.currencyData.clear();
+        this.currencyData.addAll(currencyData);
+        notifyDataSetChanged();
+
+    }
 
     @NonNull
     @Override
@@ -42,10 +50,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.VievHo
 
     @Override
     public int getItemCount() {
-        if (currencyData!=null){
-
-        }
-        return currencyData.size();
+            return currencyData.size();
     }
 
     public class VievHolder extends RecyclerView.ViewHolder {
@@ -58,9 +63,9 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.VievHo
         public VievHolder(@NonNull View itemView) {
             super(itemView);
 
-            textName = itemView.findViewById(R.id.text_name);
-            textCurrency = itemView.findViewById(R.id.text_currency);
-            textRate = itemView.findViewById(R.id.text_rate);
+            textName = itemView.findViewById(R.id.textView_name);
+            textCurrency = itemView.findViewById(R.id.textView_currency);
+            textRate = itemView.findViewById(R.id.textView_rate);
         }
     }
 }

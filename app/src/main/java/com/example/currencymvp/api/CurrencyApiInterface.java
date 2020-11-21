@@ -1,4 +1,4 @@
-package com.example.currencymvp.network;
+package com.example.currencymvp.api;
 
 import com.example.currencymvp.data.CurrencyData;
 
