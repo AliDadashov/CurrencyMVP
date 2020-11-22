@@ -20,4 +20,6 @@ public interface CurrencyView {
     void showError(String msg);
 
     Context getContext();
+
+    Context getApplicationContext();
 }

@@ -15,52 +15,53 @@ import com.example.currencymvp.data.CurrencyData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.VievHolder> {
+public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyVievHolder> {
 
-    private List<CurrencyData> currencyData;
+    private List<CurrencyData> currencyDataList;
     Context context;
 
     public CurrencyAdapter(Context context) {
         this.context = context;
-        currencyData = new ArrayList<>();
+        currencyDataList = new ArrayList<>();
 
     }
 
     public void addDataNotified(List<CurrencyData> currencyData) {
-        this.currencyData.clear();
-        this.currencyData.addAll(currencyData);
+        this.currencyDataList.clear();
+        this.currencyDataList.addAll(currencyData);
         notifyDataSetChanged();
 
     }
 
     @NonNull
     @Override
-    public CurrencyAdapter.VievHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CurrencyAdapter.CurrencyVievHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_currency_list, parent, false);
-        return new VievHolder(view);
+        CurrencyVievHolder currencyVievHolder = new CurrencyVievHolder(view);
+        return currencyVievHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VievHolder holder, int position) {
-        holder.textName.setText(currencyData.get(position).getName());
-        holder.textCurrency.setText(currencyData.get(position).getCode());
-        holder.textRate.setText(currencyData.get(position).getRate());
+    public void onBindViewHolder(@NonNull CurrencyVievHolder holder, int position) {
+        holder.textName.setText(currencyDataList.get(position).getName());
+        holder.textCurrency.setText(currencyDataList.get(position).getCode());
+        holder.textRate.setText(currencyDataList.get(position).getRate());
     }
 
     @Override
     public int getItemCount() {
-            return currencyData.size();
+        return currencyDataList.size();
     }
 
-    public class VievHolder extends RecyclerView.ViewHolder {
+    public class CurrencyVievHolder extends RecyclerView.ViewHolder {
 
         TextView textName;
         TextView textCurrency;
         TextView textRate;
 
 
-        public VievHolder(@NonNull View itemView) {
+        public CurrencyVievHolder(@NonNull View itemView) {
             super(itemView);
 
             textName = itemView.findViewById(R.id.textView_name);

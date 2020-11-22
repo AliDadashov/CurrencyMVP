@@ -20,16 +20,20 @@ public class CurrencyPresenter {
     private CurrencyInteractor currencyInteractor;
     Context context;
 
+    public CurrencyPresenter(){
+        currencyInteractor = new CurrencyInteractor(context);
+    }
     public void setView(CurrencyView view) {
         this.view = view;
 
     }
 
+
     public void onSendRequest(String base) {
         if (view == null) return;
         if (InternetConnection.isConnected(view.getContext())) {
             currencyInteractor.getCurrency(base, new CurrencyCallback());
-        }else {
+        } else {
             view.showError("No internet");
         }
     }

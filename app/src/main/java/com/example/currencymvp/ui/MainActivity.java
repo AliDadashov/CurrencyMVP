@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-//    @BindView(R.id.confirm_button)
-//    Button button;
+    @BindView(R.id.confirm_button)
+    Button button;
 
 
     @Override
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         adapter = new CurrencyAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        presenter.onSendRequest("GBP");
+        presenter.onSendRequest("USD");
         showProgressBar();
 
     }
