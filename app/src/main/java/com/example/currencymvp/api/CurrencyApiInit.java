@@ -20,7 +20,7 @@ public class CurrencyApiInit {
 
 
 
-    public CurrencyApiInit initDefaultApi() {
+    public CurrencyApiInit initApi() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())

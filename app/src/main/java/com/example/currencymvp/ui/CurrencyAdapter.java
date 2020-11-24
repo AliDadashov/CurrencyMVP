@@ -1,6 +1,7 @@
 package com.example.currencymvp.ui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,63 +11,76 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencymvp.R;
-import com.example.currencymvp.data.CurrencyData;
+import com.example.currencymvp.data.CurrencyResponse;
+import com.example.currencymvp.utils.CurrencyRateFormat;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyVievHolder> {
+public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder> {
 
-    private List<CurrencyData> currencyDataList;
+    private List<CurrencyResponse> currencyResponseList;
     Context context;
 
     public CurrencyAdapter(Context context) {
         this.context = context;
-        currencyDataList = new ArrayList<>();
+        currencyResponseList = new ArrayList<>();
 
     }
 
-    public void addDataNotified(List<CurrencyData> currencyData) {
-        this.currencyDataList.clear();
-        this.currencyDataList.addAll(currencyData);
+    public void addDataNotified(List<CurrencyResponse> currencyResponseList) {
+        this.currencyResponseList.clear();
+        this.currencyResponseList.addAll(currencyResponseList);
         notifyDataSetChanged();
 
     }
 
     @NonNull
     @Override
-    public CurrencyAdapter.CurrencyVievHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CurrencyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_currency_list, parent, false);
-        CurrencyVievHolder currencyVievHolder = new CurrencyVievHolder(view);
-        return currencyVievHolder;
+        CurrencyViewHolder currencyViewHolder = new CurrencyViewHolder(view);
+        return currencyViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CurrencyVievHolder holder, int position) {
-        holder.textName.setText(currencyDataList.get(position).getName());
-        holder.textCurrency.setText(currencyDataList.get(position).getCode());
-        holder.textRate.setText(currencyDataList.get(position).getRate());
+    public void onBindViewHolder(@NonNull CurrencyViewHolder holder, int position) {
+        holder.textName.setText(currencyResponseList.get(position).getName());
+        holder.textCurrency.setText(currencyResponseList.get(position).getCode());
+        holder.textRate.setText(CurrencyRateFormat.onRateFormat(currencyResponseList.get(position).getCalculatedAmount()));
     }
 
     @Override
     public int getItemCount() {
-        return currencyDataList.size();
+        return currencyResponseList.size();
     }
 
-    public class CurrencyVievHolder extends RecyclerView.ViewHolder {
+
+
+
+    public class CurrencyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textName;
         TextView textCurrency;
         TextView textRate;
 
 
-        public CurrencyVievHolder(@NonNull View itemView) {
+        public CurrencyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textName = itemView.findViewById(R.id.textView_name);
             textCurrency = itemView.findViewById(R.id.textView_currency);
             textRate = itemView.findViewById(R.id.textView_rate);
         }
+
     }
+
+
+
+
 }

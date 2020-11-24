@@ -2,11 +2,12 @@ package com.example.currencymvp.ui;
 
 import android.content.Context;
 
-import com.example.currencymvp.data.CurrencyData;
+import com.example.currencymvp.data.CurrencyResponse;
 import com.example.currencymvp.interactor.CurrencyInteractor;
 import com.example.currencymvp.utils.InternetConnection;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,13 +20,25 @@ public class CurrencyPresenter {
     private CurrencyView view;
     private CurrencyInteractor currencyInteractor;
     Context context;
+    private List<CurrencyResponse> globalCurrencyResponseList =new ArrayList<>();
 
-    public CurrencyPresenter(){
+
+    public CurrencyPresenter() {
         currencyInteractor = new CurrencyInteractor(context);
     }
+
     public void setView(CurrencyView view) {
         this.view = view;
 
+    }
+
+    public void updateCurrency(double amount) {
+        if (globalCurrencyResponseList.size() > 0) {
+            for (CurrencyResponse response : globalCurrencyResponseList) {
+                response.setCalculatedAmount(amount * response.getRate());
+            }
+            view.setData(globalCurrencyResponseList);
+        }
     }
 
 
@@ -38,18 +51,18 @@ public class CurrencyPresenter {
         }
     }
 
-    public class CurrencyCallback implements Callback<List<CurrencyData>> {
+    public class CurrencyCallback implements Callback<List<CurrencyResponse>> {
 
 
         @Override
-        public void onResponse(Call<List<CurrencyData>> call, Response<List<CurrencyData>> response) {
+        public void onResponse(Call<List<CurrencyResponse>> call, Response<List<CurrencyResponse>> response) {
             view.hideProgressBar();
 
             if (response.code() == 200) {
 
                 if (response.body() != null && response.body().size() > 0) {
                     view.setData(response.body());
-
+                    globalCurrencyResponseList.addAll(response.body());
                 }
             } else {
                 view.showError("Empty view");
@@ -58,7 +71,7 @@ public class CurrencyPresenter {
         }
 
         @Override
-        public void onFailure(Call<List<CurrencyData>> call, Throwable t) {
+        public void onFailure(Call<List<CurrencyResponse>> call, Throwable t) {
             view.hideProgressBar();
 
             if (t instanceof ConnectException) {

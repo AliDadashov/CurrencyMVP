@@ -3,15 +3,14 @@ package com.example.currencymvp.ui;
 
 import android.content.Context;
 
-import com.example.currencymvp.data.CurrencyData;
+import com.example.currencymvp.data.CurrencyResponse;
 
 import java.util.List;
 
 public interface CurrencyView {
 
-    void setRate(String rate);
 
-    void setData(List<CurrencyData> dataList);
+    void setData(List<CurrencyResponse> dataList);
 
     void showProgressBar();
 
@@ -21,5 +20,4 @@ public interface CurrencyView {
 
     Context getContext();
 
-    Context getApplicationContext();
 }

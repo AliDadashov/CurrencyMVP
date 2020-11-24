@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.currencymvp.R;
-import com.example.currencymvp.data.CurrencyData;
+import com.example.currencymvp.data.CurrencyResponse;
 
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
         presenter = new CurrencyPresenter();
         presenter.setView(this);
 
@@ -58,16 +61,20 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         presenter.onSendRequest("USD");
         showProgressBar();
 
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateCurrency(Double.parseDouble(enteredAmount.getText().toString()));
+            }
+        });
+
     }
 
 
-    @Override
-    public void setRate(String rate) {
-
-    }
 
     @Override
-    public void setData(List<CurrencyData> dataList) {
+    public void setData(List<CurrencyResponse> dataList) {
 
         adapter.addDataNotified(dataList);
     }

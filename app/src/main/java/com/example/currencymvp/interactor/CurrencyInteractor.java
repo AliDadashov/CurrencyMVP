@@ -2,7 +2,7 @@ package com.example.currencymvp.interactor;
 
 import android.content.Context;
 
-import com.example.currencymvp.data.CurrencyData;
+import com.example.currencymvp.data.CurrencyResponse;
 import com.example.currencymvp.api.CurrencyApiInit;
 
 import java.util.List;
@@ -15,11 +15,11 @@ public class CurrencyInteractor {
     private CurrencyApiInit apiInitHelper;
 
     public CurrencyInteractor(Context context) {
-        apiInitHelper = new CurrencyApiInit(context).initDefaultApi();
+        apiInitHelper = new CurrencyApiInit(context).initApi();
         this.context = context;
     }
 
-    public void getCurrency(String base, Callback<List<CurrencyData>> responceCallback) {
+    public void getCurrency(String base, Callback<List<CurrencyResponse>> responceCallback) {
 
         apiInitHelper
                 .createService()

@@ -2,7 +2,16 @@ package com.example.currencymvp.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CurrencyData {
+public class CurrencyResponse {
+    double calculatedAmount=1d;
+
+    public double getCalculatedAmount() {
+        return calculatedAmount;
+    }
+
+    public void setCalculatedAmount(double calculatedAmount) {
+        this.calculatedAmount = calculatedAmount;
+    }
 
     @SerializedName("code")
     String code;
@@ -13,11 +22,23 @@ public class CurrencyData {
     @SerializedName("name")
     String name;
     @SerializedName("rate")
-    String rate;
+    Double rate;
     @SerializedName("date")
     String date;
     @SerializedName("inverseRate")
     String inverseRate;
+
+
+
+    public CurrencyResponse(String code, String alphaCode, String numericCode, String name, Double rate, String date, String inverseRate) {
+        this.code = code;
+        this.alphaCode = alphaCode;
+        this.numericCode = numericCode;
+        this.name = name;
+        this.rate = rate;
+        this.date = date;
+        this.inverseRate = inverseRate;
+    }
 
     public String getCode() {
         return code;
@@ -51,11 +72,11 @@ public class CurrencyData {
         this.name = name;
     }
 
-    public String getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 

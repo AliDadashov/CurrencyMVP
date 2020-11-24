@@ -1,6 +1,6 @@
 package com.example.currencymvp.api;
 
-import com.example.currencymvp.data.CurrencyData;
+import com.example.currencymvp.data.CurrencyResponse;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface CurrencyApiInterface {
 
     interface CurrencyService {
         @GET("rates.php")
-        Call<List<CurrencyData>>  getCurrency(@Query("base") String base);
+        Call<List<CurrencyResponse>>  getCurrency(@Query("base") String base);
 
     }
 }
