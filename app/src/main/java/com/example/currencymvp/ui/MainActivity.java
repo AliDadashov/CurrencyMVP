@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         adapter = new CurrencyAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        presenter.onSendRequest("USD");
+        presenter.onSendRequest("TRY");
         showProgressBar();
 
 
