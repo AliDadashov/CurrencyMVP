@@ -19,11 +19,6 @@ import static com.example.currencymvp.utils.Constants.BASE_URL;
 public class CurrencyApiInit {
     private CurrencyApiInterface.CurrencyService currencyService;
     private Retrofit retrofit;
-    private Context context;
-
-    public CurrencyApiInit(Context context) {
-        this.context = context;
-    }
 
 
     public static OkHttpClient getUnsafeOkHttpClient() {

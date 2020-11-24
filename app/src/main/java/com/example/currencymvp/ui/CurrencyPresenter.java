@@ -20,11 +20,11 @@ public class CurrencyPresenter {
     private CurrencyView view;
     private CurrencyInteractor currencyInteractor;
     Context context;
-    private List<CurrencyResponse> globalCurrencyResponseList =new ArrayList<>();
+    private List<CurrencyResponse> globalCurrencyResponseList = new ArrayList<>();
 
 
     public CurrencyPresenter() {
-        currencyInteractor = new CurrencyInteractor(context);
+        currencyInteractor = new CurrencyInteractor();
     }
 
     public void setView(CurrencyView view) {
@@ -33,7 +33,7 @@ public class CurrencyPresenter {
     }
 
     public void updateCurrency(double amount) {
-        if (globalCurrencyResponseList.size() > 0) {
+        if (globalCurrencyResponseList.size() > 0){
             for (CurrencyResponse response : globalCurrencyResponseList) {
                 response.setCalculatedAmount(amount * response.getRate());
             }
@@ -61,8 +61,9 @@ public class CurrencyPresenter {
             if (response.code() == 200) {
 
                 if (response.body() != null && response.body().size() > 0) {
-                    view.setData(response.body());
+
                     globalCurrencyResponseList.addAll(response.body());
+                    updateCurrency(1.0);
                 }
             } else {
                 view.showError("Empty view");

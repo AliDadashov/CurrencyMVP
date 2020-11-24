@@ -11,12 +11,10 @@ import retrofit2.Callback;
 
 public class CurrencyInteractor {
 
-    private Context context;
     private CurrencyApiInit apiInitHelper;
 
-    public CurrencyInteractor(Context context) {
-        apiInitHelper = new CurrencyApiInit(context).initApi();
-        this.context = context;
+    public CurrencyInteractor() {
+        apiInitHelper = new CurrencyApiInit().initApi();
     }
 
     public void getCurrency(String base, Callback<List<CurrencyResponse>> responceCallback) {

@@ -58,14 +58,16 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
         adapter = new CurrencyAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        presenter.onSendRequest("TRY");
+        presenter.onSendRequest("RGB");
         showProgressBar();
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateCurrency(Double.parseDouble(enteredAmount.getText().toString()));
+                if (!enteredAmount.getText().toString().equals("")) {
+                    presenter.updateCurrency(Double.parseDouble(enteredAmount.getText().toString()));
+                }else {Toast.makeText(MainActivity.this, "Enter amount", Toast.LENGTH_SHORT).show();}
             }
         });
 

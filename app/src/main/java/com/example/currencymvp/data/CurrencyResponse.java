@@ -3,7 +3,7 @@ package com.example.currencymvp.data;
 import com.google.gson.annotations.SerializedName;
 
 public class CurrencyResponse {
-    double calculatedAmount = 1d;
+    double calculatedAmount = 1.00;
 
     public double getCalculatedAmount() {
         return calculatedAmount;
@@ -28,16 +28,6 @@ public class CurrencyResponse {
     @SerializedName("inverseRate")
     String inverseRate;
 
-
-    public CurrencyResponse(String code, String alphaCode, String numericCode, String name, Double rate, String date, String inverseRate) {
-        this.code = code;
-        this.alphaCode = alphaCode;
-        this.numericCode = numericCode;
-        this.name = name;
-        this.rate = rate;
-        this.date = date;
-        this.inverseRate = inverseRate;
-    }
 
     public String getCode() {
         return code;
