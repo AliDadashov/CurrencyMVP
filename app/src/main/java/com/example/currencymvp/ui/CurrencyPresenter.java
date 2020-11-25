@@ -19,7 +19,6 @@ public class CurrencyPresenter {
 
     private CurrencyView view;
     private CurrencyInteractor currencyInteractor;
-    Context context;
     private List<CurrencyResponse> globalCurrencyResponseList = new ArrayList<>();
 
 

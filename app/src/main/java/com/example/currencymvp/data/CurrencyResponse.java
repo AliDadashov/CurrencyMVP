@@ -14,19 +14,19 @@ public class CurrencyResponse {
     }
 
     @SerializedName("code")
-    String code;
+    private String code;
     @SerializedName("alphaCode")
-    String alphaCode;
+    private String alphaCode;
     @SerializedName("numericCode")
-    String numericCode;
+    private String numericCode;
     @SerializedName("name")
-    String name;
+    private String name;
     @SerializedName("rate")
-    Double rate;
+    private Double rate;
     @SerializedName("date")
-    String date;
+    private String date;
     @SerializedName("inverseRate")
-    String inverseRate;
+    private String inverseRate;
 
 
     public String getCode() {
