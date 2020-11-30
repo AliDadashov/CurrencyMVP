@@ -1,31 +1,35 @@
 package com.example.currencymvp.interactor;
 
-import android.content.Context;
 
+import com.example.currencymvp.api.CurrencyApiInterface;
+import com.example.currencymvp.api.CurrencyApiService;
+import com.example.currencymvp.dagger.CurrencyApiModule;
 import com.example.currencymvp.data.CurrencyResponse;
-import com.example.currencymvp.api.CurrencyApiInit;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class CurrencyInteractor {
 
-    private CurrencyApiInit apiInitHelper;
+    @Inject
+    CurrencyApiService currencyApiService;
 
+    @Inject
     public CurrencyInteractor() {
-        apiInitHelper = new CurrencyApiInit().initApi();
+        currencyApiService = new CurrencyApiService();
     }
 
-    public void getCurrency(String base, Callback<List<CurrencyResponse>> responceCallback) {
 
-        apiInitHelper
+    public void getCurrency(String base, Callback<List<CurrencyResponse>> responceCallback) {
+        currencyApiService
                 .createService()
-                .getService()
-                .getCurrency(base)
+                .getCurrencyApi(base)
                 .enqueue(responceCallback);
 
     }
-
 
 }

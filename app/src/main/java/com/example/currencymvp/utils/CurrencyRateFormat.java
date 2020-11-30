@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public  class CurrencyRateFormat {
+public class CurrencyRateFormat {
 
     public static String onRateFormat(@NotNull double currencyRate) {
         Log.e("test",currencyRate+"");

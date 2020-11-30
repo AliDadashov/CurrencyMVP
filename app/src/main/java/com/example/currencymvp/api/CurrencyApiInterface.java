@@ -12,7 +12,7 @@ public interface CurrencyApiInterface {
 
     interface CurrencyService {
         @GET("rates.php")
-        Call<List<CurrencyResponse>>  getCurrency(@Query("base") String base);
+        Call<List<CurrencyResponse>> getCurrencyApi(@Query("base") String base);
 
     }
 }

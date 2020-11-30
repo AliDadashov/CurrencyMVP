@@ -1,7 +1,5 @@
 package com.example.currencymvp.ui;
 
-import android.content.Context;
-
 import com.example.currencymvp.data.CurrencyResponse;
 import com.example.currencymvp.interactor.CurrencyInteractor;
 import com.example.currencymvp.utils.InternetConnection;
@@ -11,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,12 +18,12 @@ import retrofit2.Response;
 public class CurrencyPresenter {
 
     private CurrencyView view;
-    private CurrencyInteractor currencyInteractor;
+    @Inject
+    CurrencyInteractor currencyInteractor;
     private List<CurrencyResponse> globalCurrencyResponseList = new ArrayList<>();
 
-
+    @Inject
     public CurrencyPresenter() {
-        currencyInteractor = new CurrencyInteractor();
     }
 
     public void setView(CurrencyView view) {
@@ -32,7 +32,7 @@ public class CurrencyPresenter {
     }
 
     public void updateCurrency(double amount) {
-        if (globalCurrencyResponseList.size() > 0){
+        if (globalCurrencyResponseList.size() > 0) {
             for (CurrencyResponse response : globalCurrencyResponseList) {
                 response.setCalculatedAmount(amount * response.getRate());
             }
@@ -63,6 +63,7 @@ public class CurrencyPresenter {
 
                     globalCurrencyResponseList.addAll(response.body());
                     updateCurrency(1.0);
+
                 }
             } else {
                 view.showError("Empty view");

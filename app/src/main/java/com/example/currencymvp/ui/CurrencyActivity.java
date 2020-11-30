@@ -7,25 +7,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.currencymvp.CurrencyApplication;
 import com.example.currencymvp.R;
 import com.example.currencymvp.data.CurrencyResponse;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements CurrencyView {
+public class CurrencyActivity extends AppCompatActivity implements CurrencyView {
 
-    private CurrencyPresenter presenter;
+    @Inject
+    CurrencyPresenter presenter;
     private CurrencyAdapter adapter;
     RecyclerView recyclerView;
     Context context;
@@ -45,10 +47,14 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        CurrencyApplication app = (CurrencyApplication) getApplication();
+
+        app.getComponent().inject(this);
+
         ButterKnife.bind(this);
 
 
-        presenter = new CurrencyPresenter();
         presenter.setView(this);
 
         recyclerView = findViewById(R.id.currency_recyclerView);
@@ -67,12 +73,13 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
             public void onClick(View v) {
                 if (!enteredAmount.getText().toString().equals("")) {
                     presenter.updateCurrency(Double.parseDouble(enteredAmount.getText().toString()));
-                }else {Toast.makeText(MainActivity.this, "Enter amount", Toast.LENGTH_SHORT).show();}
+                } else {
+                    Toast.makeText(CurrencyActivity.this, "Enter amount", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
-
 
 
     @Override
@@ -99,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyView {
     }
 
     @Override
-    public MainActivity getContext() {
+    public CurrencyActivity getContext() {
         return this;
     }
 }
